@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Weather.FiveDayForecastView"
+             x:Name="FiveDayForecastContentView"
+             BackgroundColor="Transparent">
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto"
+              RowSpacing="20"
+              Padding="20">
+            <!-- Поле для ввода города и кнопка -->
+            <HorizontalStackLayout Grid.Row="0" Spacing="10" HorizontalOptions="Center">
+                <Entry x:Name="CityEntry" 
+                       Placeholder="Введите город"
+                       WidthRequest="200"
+                       Text="Moscow"/>
+                <Button Text="Загрузить" 
+                        Clicked="OnLoadWeatherClicked"/>
+            </HorizontalStackLayout>
+
+            <ActivityIndicator Grid.Row="1"
+                             IsRunning="{Binding IsLoading}"
+                             IsVisible="{Binding IsLoading}"
+                             HorizontalOptions="Center"/>
+
+            <Label Grid.Row="2" 
+                   Text="Данные о погоде отсутствуют"
+                   IsVisible="{Binding NoDataVisible}"
+                   HorizontalOptions="Center"/>
+
+            <!-- Контейнер для плашек с погодой - вертикальный список -->
+            <VerticalStackLayout Grid.Row="3"
+                                 BindableLayout.ItemsSource="{Binding WeatherDays}"
+                                 IsVisible="{Binding HasData}"
+                                 Spacing="15"
+                                 HorizontalOptions="Fill">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="15" 
+                               CornerRadius="15"
+                               BackgroundColor="#CBBDFF"
+                               HorizontalOptions="Fill">
+                            <Grid ColumnDefinitions="Auto,*,Auto,Auto"
+                                  ColumnSpacing="15"
+                                  VerticalOptions="Center">
+                                <!-- Дата -->
+                                <Label Grid.Column="0"
+                                       Text="{Binding Date}" 
+                                       FontSize="14"
+                                       TextColor="#413755"
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center"
+                                       WidthRequest="70"/>
+
+                                <!-- Иконка -->
+                                <Image Grid.Column="1"
+                                       Source="{Binding IconUrl}"
+                                       HeightRequest="40"
+                                       WidthRequest="40"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Start"/>
+
+                                <!-- Температура и описание -->
+                                <VerticalStackLayout Grid.Column="2" Spacing="5" VerticalOptions="Center">
+                                    <Label Text="{Binding Temperature}" 
+                                           FontSize="16"
+                                           TextColor="#413755"
+                                           FontAttributes="Bold"/>
+
+                                    <Label Text="{Binding Description}" 
+                                           FontSize="12"
+                                           TextColor="#413755"/>
+                                </VerticalStackLayout>
+
+                                <!-- Влажность -->
+                                <Label Grid.Column="3"
+       Text="{Binding Humidity, StringFormat='{0}%'}" 
+       FontSize="14"
+       TextColor="#413755"
+       VerticalOptions="Center"
+       HorizontalOptions="End"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+
+</ContentView>

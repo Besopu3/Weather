@@ -1,0 +1,1 @@
+C:\Users\Kolya\source\repos\MAUI\WeatherNew\Weather\Weather.csproj;x64

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Weather.MainSwipePage"
+             Title="Погода">
+
+    <Grid x:Name="MainGrid"
+          RowDefinitions="*,Auto">
+        <!-- Основной контент -->
+        <ContentView x:Name="ContentContainer" 
+                    Grid.Row="0"/>
+
+        <!-- Индикаторы страниц -->
+        <StackLayout Grid.Row="1"
+                     Orientation="Horizontal" 
+                     HorizontalOptions="Center" 
+                     VerticalOptions="End"
+                     Margin="0,0,0,20"
+                     Spacing="10"
+                     BackgroundColor="Transparent"
+                     InputTransparent="True">
+            <BoxView x:Name="Indicator1" 
+                     WidthRequest="12" 
+                     HeightRequest="12" 
+                     CornerRadius="6" 
+                     Color="#CBBDFF"/>
+            <BoxView x:Name="Indicator2" 
+                     WidthRequest="12" 
+                     HeightRequest="12" 
+                     CornerRadius="6" 
+                     Color="#E6DDFF"/>
+        </StackLayout>
+
+        <!-- Невидимые области по бокам для обработки свайпов -->
+        <BoxView x:Name="LeftSwipeArea"
+                 Grid.Row="0"
+                 BackgroundColor="Transparent"
+                 HorizontalOptions="Start"
+                 VerticalOptions="Fill"
+                 WidthRequest="50">
+            <BoxView.GestureRecognizers>
+                <SwipeGestureRecognizer Direction="Right" Swiped="OnSwiped" />
+            </BoxView.GestureRecognizers>
+        </BoxView>
+
+        <BoxView x:Name="RightSwipeArea"
+                 Grid.Row="0"
+                 BackgroundColor="Transparent"
+                 HorizontalOptions="End"
+                 VerticalOptions="Fill"
+                 WidthRequest="50">
+            <BoxView.GestureRecognizers>
+                <SwipeGestureRecognizer Direction="Left" Swiped="OnSwiped" />
+            </BoxView.GestureRecognizers>
+        </BoxView>
+    </Grid>
+
+</ContentPage>
